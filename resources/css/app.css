@@ -34,8 +34,24 @@
 
 @layer utilities {
     .text-outline {
-        -webkit-text-stroke: 1px currentColor;
+        -webkit-text-stroke: 1px var(--foreground);
         color: transparent;
+        opacity: 0.8;
+    }
+
+    .dark .text-outline {
+        -webkit-text-stroke: 1px var(--foreground);
+        opacity: 0.6;
+    }
+
+    .text-outline-orange {
+        -webkit-text-stroke: 1.5px var(--accent);
+        color: transparent;
+    }
+
+    .text-muted {
+        color: var(--foreground);
+        opacity: 0.6;
     }
 
     .bg-mesh {
