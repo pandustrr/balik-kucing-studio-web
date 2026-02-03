@@ -10,23 +10,69 @@
     :root {
         --background: #F1EFEB;
         --foreground: #28282A;
-        --card-bg: rgba(241, 239, 235, 0.7);
-        --nav-bg: rgba(241, 239, 235, 0.8);
+        --card-bg: rgba(241, 239, 235, 0.5);
+        --nav-bg: rgba(241, 239, 235, 0.7);
         --border-color: rgba(40, 40, 42, 0.1);
+        --accent: #F47C20;
     }
 
     .dark {
-        --background: #1a1a1c;
+        --background: #0a0a0b;
         --foreground: #F1EFEB;
-        --card-bg: rgba(40, 40, 42, 0.7);
-        --nav-bg: rgba(26, 26, 28, 0.8);
-        --border-color: rgba(241, 239, 235, 0.1);
+        --card-bg: rgba(20, 20, 22, 0.4);
+        --nav-bg: rgba(10, 10, 11, 0.7);
+        --border-color: rgba(241, 239, 235, 0.08);
     }
 
     body {
         background-color: var(--background);
         color: var(--foreground);
         font-family: 'Plus Jakarta Sans', sans-serif;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+@layer utilities {
+    .text-outline {
+        -webkit-text-stroke: 1px currentColor;
+        color: transparent;
+    }
+
+    .bg-mesh {
+        /* Simplified mesh for better performance */
+        background-image:
+            radial-gradient(at 0% 0%, rgba(244, 124, 32, 0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(244, 124, 32, 0.08) 0px, transparent 50%);
+    }
+
+    .glass {
+        background: var(--card-bg);
+        /* Optimized blur and removed saturate for better FPS */
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-color);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .animate-reveal {
+        animation: reveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        will-change: transform, opacity;
+    }
+
+    @keyframes reveal {
+        0% {
+            transform: translateY(40px) scale(0.98);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    .mask-text {
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 }
