@@ -4,8 +4,8 @@
         <nav class="glass rounded-[32px] px-6 py-3 flex justify-between items-center border border-white/10 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.1)]">
             <!-- Logo Section -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 bg-bk-orange rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-[0_10px_20px_-5px_rgba(244,124,32,0.5)] transform group-hover:rotate-[15deg] transition-all duration-500">
-                    B
+                <div class="relative w-10 h-10 flex items-center justify-center transform group-hover:rotate-[15deg] transition-all duration-500">
+                    <img src="{{ asset('Logogram_BKStd.ico') }}" alt="BK Studio Logo" class="w-full h-full object-contain filter drop-shadow-[0_5px_10px_rgba(244,124,32,0.3)]">
                 </div>
                 <div class="flex flex-col">
                     <span class="text-sm font-black tracking-tighter leading-none">BALIKKUCING</span>
@@ -45,10 +45,12 @@
 
                 <!-- CTA Button -->
                 <button class="relative group hidden sm:block">
+                    <a href="https://lynk.id/balikkucingstudio" target="_blank">
                     <div class="absolute -inset-1 bg-bk-orange rounded-full blur-md opacity-25 group-hover:opacity-50 transition-opacity"></div>
                     <div class="relative bg-foreground dark:bg-bk-orange text-background dark:text-white px-6 py-2.5 rounded-full text-xs font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95">
                         Order Desain
                     </div>
+                    </a>
                 </button>
 
                 <!-- Mobile Menu Button (Optional, can be added later) -->

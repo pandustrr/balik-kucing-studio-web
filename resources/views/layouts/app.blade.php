@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ asset('Logogram_BKStd.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('Logogram_BKStd.ico') }}">
 
     <script>
         // Check for dark mode preference
