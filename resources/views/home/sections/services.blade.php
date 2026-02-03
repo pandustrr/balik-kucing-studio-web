@@ -13,7 +13,7 @@
                 <h2 class="text-bk-orange font-black tracking-[0.3em] uppercase text-xs">Spesialisasi Kami</h2>
                 <h3 class="text-5xl md:text-7xl font-heading font-black leading-none tracking-tighter">
                     EKSPLORASI <br>
-                    <span class="text-outline">KATALOG</span> KREATIF.
+                    <span class="text-bk-orange uppercase">Katalog</span> Kreatif.
                 </h3>
             </div>
             <p class="max-w-md text-xl opacity-60 italic font-medium">

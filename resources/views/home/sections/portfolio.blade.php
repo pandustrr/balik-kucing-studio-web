@@ -13,7 +13,7 @@
                 <h2 class="text-bk-orange font-black tracking-[0.3em] uppercase text-xs">Portofolio</h2>
                 <h3 class="text-6xl md:text-8xl font-heading font-black leading-[0.9] tracking-tighter">
                     HASIL KARYA <br>
-                    <span class="text-outline uppercase text-white">RASA JERUK.</span>
+                    <span class="text-bk-orange uppercase">RASA JERUK.</span>
                 </h3>
             </div>
             <div class="lg:col-span-4 lg:pt-12">

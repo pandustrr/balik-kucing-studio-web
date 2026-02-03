@@ -15,9 +15,10 @@
             <div>
                 <h5 class="font-bold mb-6 italic">Navigasi</h5>
                 <ul class="space-y-4 text-white/50 text-sm">
-                    <li><a href="#" class="hover:text-bk-orange transition-colors">Tentang Kami</a></li>
-                    <li><a href="#" class="hover:text-bk-orange transition-colors">Kontributor</a></li>
-                    <li><a href="#" class="hover:text-bk-orange transition-colors">Syarat & Ketentuan</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-bk-orange transition-colors">Home</a></li>
+                    <li><a href="{{ route('layanan') }}" class="hover:text-bk-orange transition-colors">Layanan</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-bk-orange transition-colors">Tentang Kami</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-bk-orange transition-colors">Hubungi Kami</a></li>
                 </ul>
             </div>
 

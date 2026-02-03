@@ -59,6 +59,18 @@
     @include('partials.footer')
     @stack('scripts')
     <script>
+        // Navbar Scroll Effect
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                mainNav.classList.remove('py-6');
+                mainNav.classList.add('py-3');
+            } else {
+                mainNav.classList.remove('py-3');
+                mainNav.classList.add('py-6');
+            }
+        });
+
         // Scroll Reveal Animation
         const observerOptions = {
             threshold: 0.1,

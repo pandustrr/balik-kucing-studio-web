@@ -1,7 +1,13 @@
 <!-- Hero Section -->
-<section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden bg-mesh">
+<section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img src="{{ asset('images/hero_bg.png') }}" alt="Background" class="w-full h-full object-cover opacity-30 dark:opacity-50">
+        <div class="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background dark:from-background dark:via-transparent dark:to-background"></div>
+    </div>
+
     <!-- Big Animated Background Text -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-1">
         <h2 class="text-[20vw] font-heading font-black opacity-[0.03] dark:opacity-[0.05] whitespace-nowrap leading-none transform -rotate-12 translate-y-12">
             BALIKKUCING STUDIO
         </h2>
@@ -25,8 +31,8 @@
                 <div class="space-y-4 reveal-item">
                     <h1 class="text-6xl md:text-8xl lg:text-[100px] font-heading font-black leading-[0.9] tracking-tighter">
                         YA <span class="text-bk-orange">DESAIN,</span><br>
-                        YA <span class="text-outline">NGGAMBAR,</span><br>
-                        YA MERCH.
+                        YA <span class="text-bk-orange uppercase">NGGAMBAR,</span><br>
+                        YA <span class="text-bk-orange">MERCH.</span>
                     </h1>
                 </div>
 

@@ -39,7 +39,7 @@
                     <h2 class="text-bk-orange font-black tracking-[0.3em] uppercase text-xs">Tentang Kami</h2>
                     <h3 class="text-6xl md:text-8xl font-heading font-black leading-[0.9] tracking-tighter">
                         LEBIH DARI <br>
-                        <span class="text-outline uppercase">SEKADAR</span> <br>
+                        <span class="text-bk-orange uppercase">SEKADAR</span> <br>
                         DESAIN.
                     </h3>
                 </div>
