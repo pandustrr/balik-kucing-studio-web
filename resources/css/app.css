@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bk-orange: #F47C20;
+    --color-white-cloud: #F1EFEB;
+    --color-ultra-black: #28282A;
+}
+
+@layer base {
+    :root {
+        --background: #F1EFEB;
+        --foreground: #28282A;
+        --card-bg: rgba(241, 239, 235, 0.7);
+        --nav-bg: rgba(241, 239, 235, 0.8);
+        --border-color: rgba(40, 40, 42, 0.1);
+    }
+
+    .dark {
+        --background: #1a1a1c;
+        --foreground: #F1EFEB;
+        --card-bg: rgba(40, 40, 42, 0.7);
+        --nav-bg: rgba(26, 26, 28, 0.8);
+        --border-color: rgba(241, 239, 235, 0.1);
+    }
+
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+}
