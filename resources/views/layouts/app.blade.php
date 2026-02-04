@@ -59,6 +59,7 @@
     </main>
 
     @include('partials.footer')
+    @include('partials.whatsapp-widget')
     @stack('scripts')
     <script>
         // Navbar Scroll Effect
