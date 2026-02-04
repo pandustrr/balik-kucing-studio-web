@@ -22,19 +22,16 @@
                 <span class="text-[11px] font-black uppercase tracking-wider">Dashboard</span>
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/40 hover:bg-white/5 hover:text-white transition-all group">
+            <p class="text-[8px] font-black text-white/20 uppercase tracking-[0.3em] px-3 pt-6 mb-3">Content</p>
+
+            <a href="{{ route('admin.hero.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.hero.*') ? 'bg-bk-orange text-white shadow-xl shadow-bk-orange/20' : 'text-white/40 hover:bg-white/5 hover:text-white' }} group">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:text-bk-orange transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span class="text-[11px] font-black uppercase tracking-wider">Portfolio</span>
+                <span class="text-[11px] font-black uppercase tracking-wider">Hero Manager</span>
             </a>
 
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-white/40 hover:bg-white/5 hover:text-white transition-all group">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:text-bk-orange transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <span class="text-[11px] font-black uppercase tracking-wider">Merch</span>
-            </a>
+
 
             <p class="text-[8px] font-black text-white/20 uppercase tracking-[0.3em] px-3 pt-6 mb-3">Account</p>
 
