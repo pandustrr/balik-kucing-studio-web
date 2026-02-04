@@ -31,6 +31,7 @@
                 <span class="text-[11px] font-black uppercase tracking-wider">Hero Manager</span>
             </a>
 
+
             <!-- Merchandise Dropdown -->
             <div class="space-y-1">
                 <button onclick="toggleDropdown('merchandise-menu')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ request()->is('admin/merchandise*') ? 'bg-white/5 text-white' : 'text-white/40 hover:bg-white/5 hover:text-white' }} group cursor-pointer border-none outline-none text-left">
@@ -45,11 +46,11 @@
                     </svg>
                 </button>
                 <div id="merchandise-menu" class="pl-11 space-y-1 overflow-hidden transition-all duration-300 {{ request()->is('admin/merchandise*') ? 'max-h-40' : 'max-h-0' }}">
-                    <a href="{{ route('admin.merchandise.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.index') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
-                        Data Produk
-                    </a>
                     <a href="{{ route('admin.merchandise.categories.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.categories.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
                         Kategori
+                    </a>
+                    <a href="{{ route('admin.merchandise.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.index') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Data Produk
                     </a>
                 </div>
             </div>

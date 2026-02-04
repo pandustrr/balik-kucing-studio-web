@@ -51,7 +51,7 @@
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-1 gap-4 reveal-item">
                     <!-- Contact Card 1 -->
-                    <a href="https://wa.me/6281234567890" target="_blank" class="group flex items-center gap-4 p-5 glass rounded-2xl transition-all hover:scale-105 hover:border-bk-orange/30 active:scale-95">
+                    <a href="https://wa.me/{{ $whatsappNumber }}" target="_blank" class="group flex items-center gap-4 p-5 glass rounded-2xl transition-all hover:scale-105 hover:border-bk-orange/30 active:scale-95">
                         <div class="w-14 h-14 bg-bk-orange/10 rounded-xl flex items-center justify-center text-bk-orange group-hover:bg-bk-orange group-hover:text-white transition-all group-hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -59,7 +59,7 @@
                         </div>
                         <div class="flex-1">
                             <p class="text-[9px] opacity-50 uppercase font-black tracking-widest">WhatsApp</p>
-                            <p class="text-base font-bold">+62 812-3456-7890</p>
+                            <p class="text-base font-bold">+{{ $whatsappNumber }}</p>
                         </div>
                         <svg class="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />

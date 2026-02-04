@@ -28,10 +28,10 @@
             </div>
 
             <!-- Links Columns -->
-            <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
-                <div class="space-y-6">
-                    <h5 class="text-xs font-black uppercase tracking-[0.3em] text-bk-orange">Sitemap</h5>
-                    <ul class="space-y-4 font-bold opacity-60">
+            <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+                <div class="space-y-4 md:space-y-6">
+                    <h5 class="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-bk-orange">Sitemap</h5>
+                    <ul class="space-y-3 md:space-y-4 text-xs md:text-sm font-bold opacity-60">
                         <li><a href="{{ route('home') }}" class="hover:text-bk-orange transition-colors">Utama</a></li>
                         <li><a href="{{ route('layanan') }}" class="hover:text-bk-orange transition-colors">Layanan</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-bk-orange transition-colors">Studio</a></li>
@@ -39,24 +39,24 @@
                         <li><a href="{{ route('contact') }}" class="hover:text-bk-orange transition-colors">Hiring</a></li>
                     </ul>
                 </div>
-                <div class="space-y-6">
-                    <h5 class="text-xs font-black uppercase tracking-[0.3em] text-bk-orange">Studio</h5>
-                    <div class="space-y-4 text-sm font-bold opacity-60">
+                <div class="space-y-4 md:space-y-6">
+                    <h5 class="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-bk-orange">Studio</h5>
+                    <div class="space-y-3 md:space-y-4 text-[10px] md:text-sm font-bold opacity-60">
                         <p>Perumahan Taman Gading LO-9<br>Kel. Tegal Besar, Kec. Kaliwates<br>Jember, Jawa Timur</p>
-                        <p>+62 812 3456 7890<br>halo@balikkucing.id</p>
+                        <p>+{{ $whatsappNumber }}<br>halo@balikkucing.id</p>
                     </div>
                 </div>
-                <div class="col-span-2 md:col-span-1 space-y-6">
-                    <h5 class="text-xs font-black uppercase tracking-[0.3em] text-bk-orange">Fast Response</h5>
-                    <a href="https://wa.me/6281234567890" class="block p-6 bg-bk-orange text-white rounded-[32px] font-black group transition-all hover:scale-105 active:scale-95 shadow-xl shadow-bk-orange/30">
-                        <p class="text-[10px] opacity-70 mb-1 text-white">Mulai Project</p>
-                        <p class="text-xl text-white">Chat WhatsApp</p>
+                <div class="col-span-2 md:col-span-1 space-y-4 md:space-y-6">
+                    <h5 class="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-bk-orange">Fast Response</h5>
+                    <a href="https://wa.me/{{ $whatsappNumber }}" class="block p-4 md:p-6 bg-bk-orange text-white rounded-2xl md:rounded-[32px] font-black group transition-all hover:scale-105 active:scale-95 shadow-xl shadow-bk-orange/30">
+                        <p class="text-[8px] md:text-[10px] opacity-70 mb-1 text-white uppercase tracking-wider">Mulai Project</p>
+                        <p class="text-sm md:text-xl text-white">Chat WhatsApp</p>
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest opacity-40">
+        <div class="pt-8 md:pt-12 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-widest opacity-40 text-center md:text-left">
             <p>© 2024 BALIKKUCING STUDIO. ALL RIGHTS RESERVED.</p>
             <div class="flex gap-8">
                 <a href="#" class="hover:text-bk-orange transition-colors">Privacy Policy</a>

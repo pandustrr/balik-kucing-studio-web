@@ -4,6 +4,8 @@
     --color-bk-orange: #F47C20;
     --color-white-cloud: #F1EFEB;
     --color-ultra-black: #28282A;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
 }
 
 @layer base {

@@ -158,6 +158,39 @@
                 }
             }
         });
+
+        // Mobile Sidebar Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+        function openSidebar() {
+            if (!mobileSidebar || !sidebarOverlay) return;
+            mobileSidebar.classList.remove('translate-x-full');
+            mobileSidebar.classList.add('translate-x-0');
+            sidebarOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            sidebarOverlay.classList.add('opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            if (!mobileSidebar || !sidebarOverlay) return;
+            mobileSidebar.classList.remove('translate-x-0');
+            mobileSidebar.classList.add('translate-x-full');
+            sidebarOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+            sidebarOverlay.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openSidebar);
+        if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Close sidebar on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSidebar();
+        });
     </script>
 </body>
 

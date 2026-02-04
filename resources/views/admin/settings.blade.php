@@ -150,6 +150,34 @@
                     </button>
                 </form>
             </div>
+
+            <!-- Update WhatsApp -->
+            <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5">
+                <h2 class="text-lg font-heading font-black uppercase tracking-tight mb-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-bk-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    WhatsApp Center
+                </h2>
+
+                <form action="{{ route('admin.settings.update-whatsapp') }}" method="POST" class="space-y-3">
+                    @csrf
+                    @method('PUT')
+
+                    <div>
+                        <label for="whatsapp_number" class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-1.5">Nomor WhatsApp Aktif</label>
+                        <input type="text" name="whatsapp_number" id="whatsapp_number" value="{{ old('whatsapp_number', $whatsapp_number) }}" required class="w-full px-3 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:border-bk-orange focus:outline-none transition-colors" placeholder="Contoh: 6281234567890">
+                        <p class="mt-1.5 text-[8px] text-white/20 italic">Gunakan kode negara (62) tanpa spasi atau +.</p>
+                        @error('whatsapp_number')
+                        <p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="w-full px-4 py-2.5 bg-bk-orange text-white rounded-lg font-black text-xs uppercase tracking-wider transition-all hover:scale-105 active:scale-95 shadow-lg shadow-bk-orange/20">
+                        Update WhatsApp
+                    </button>
+                </form>
+            </div>
         </div>
 
         <!-- Account Info -->

@@ -69,7 +69,7 @@
             return;
         }
 
-        const phone = '6281234567890';
+        const phone = '{{ $whatsappNumber }}';
         const text = `Halo Balikkucing Studio! 👋\n\nNama: *${name}*\nPesan: ${message}`;
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         toggleWa();

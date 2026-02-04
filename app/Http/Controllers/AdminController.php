@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 use App\Models\HeroSection;
+use App\Models\GeneralSetting;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -95,7 +96,22 @@ class AdminController extends Controller
 
     public function settings()
     {
-        return view('admin.settings');
+        $whatsapp_number = GeneralSetting::where('key', 'whatsapp_number')->first()?->value ?? '6281234567890';
+        return view('admin.settings', compact('whatsapp_number'));
+    }
+
+    public function updateWhatsapp(Request $request)
+    {
+        $request->validate([
+            'whatsapp_number' => 'required|string|max:20',
+        ]);
+
+        GeneralSetting::updateOrCreate(
+            ['key' => 'whatsapp_number'],
+            ['value' => $request->whatsapp_number]
+        );
+
+        return redirect()->route('admin.settings')->with('success', 'Nomor WhatsApp berhasil diperbarui! 📱');
     }
 
     public function updateUsername(Request $request)

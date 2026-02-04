@@ -4,6 +4,7 @@ use App\Models\HeroSection;
 use App\Models\MerchandiseCategory;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MerchandiseCategoryController;
+use App\Http\Controllers\MerchandiseProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,9 +28,10 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/merchandise', function () {
-    $hero = HeroSection::where('page_name', 'merchandise')->first();
-    $categories = MerchandiseCategory::oldest('name')->get();
-    return view('merchandise.index', compact('hero', 'categories'));
+    $hero = \App\Models\HeroSection::where('page_name', 'merchandise')->first();
+    $categories = \App\Models\MerchandiseCategory::oldest('name')->get();
+    $products = \App\Models\MerchandiseProduct::with('category')->latest()->get();
+    return view('merchandise.index', compact('hero', 'categories', 'products'));
 })->name('merchandise');
 
 // Admin Routes
@@ -43,6 +45,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/settings/name', [AdminController::class, 'updateName'])->name('admin.settings.update-name');
         Route::put('/settings/username', [AdminController::class, 'updateUsername'])->name('admin.settings.update-username');
         Route::put('/settings/password', [AdminController::class, 'updatePassword'])->name('admin.settings.update-password');
+        Route::put('/settings/whatsapp', [AdminController::class, 'updateWhatsapp'])->name('admin.settings.update-whatsapp');
 
         // Hero Manager Routes
         Route::get('/hero', [AdminController::class, 'heroIndex'])->name('admin.hero.index');
@@ -50,7 +53,7 @@ Route::prefix('admin')->group(function () {
         Route::put('/hero/{id}', [AdminController::class, 'heroUpdate'])->name('admin.hero.update');
 
         // Merchandise Management
-        Route::get('/merchandise', [AdminController::class, 'merchandiseIndex'])->name('admin.merchandise.index');
+        Route::get('/merchandise', [MerchandiseProductController::class, 'index'])->name('admin.merchandise.index');
         Route::resource('/merchandise/categories', MerchandiseCategoryController::class)->names([
             'index' => 'admin.merchandise.categories.index',
             'create' => 'admin.merchandise.categories.create',
@@ -58,6 +61,14 @@ Route::prefix('admin')->group(function () {
             'edit' => 'admin.merchandise.categories.edit',
             'update' => 'admin.merchandise.categories.update',
             'destroy' => 'admin.merchandise.categories.destroy',
+        ]);
+        Route::resource('/merchandise/products', MerchandiseProductController::class)->names([
+            'index' => 'admin.merchandise.products.index',
+            'create' => 'admin.merchandise.products.create',
+            'store' => 'admin.merchandise.products.store',
+            'edit' => 'admin.merchandise.products.edit',
+            'update' => 'admin.merchandise.products.update',
+            'destroy' => 'admin.merchandise.products.destroy',
         ]);
 
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
