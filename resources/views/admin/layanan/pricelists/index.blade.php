@@ -98,7 +98,7 @@
                 </thead>
                 <tbody class="divide-y divide-white/5">
                     @forelse($pricelists as $pricelist)
-                    <tr class="group hover:bg-white/2 transition-colors">
+                    <tr class="group hover:bg-white/2 transition-colors {{ $pricelist->is_featured ? 'bg-bk-orange/[0.03]' : '' }}">
                         <td class="px-8 py-6">
                             <p class="text-sm font-black uppercase tracking-tight">{{ $pricelist->name }}</p>
                             @if($pricelist->description)
@@ -117,7 +117,22 @@
                             @if($pricelist->features && count($pricelist->features) > 0)
                             <div class="flex flex-wrap gap-1">
                                 @foreach(array_slice($pricelist->features, 0, 2) as $feature)
-                                <span class="inline-flex px-2 py-0.5 bg-white/5 rounded text-[8px] text-white/60">{{ $feature }}</span>
+                                @php
+                                $fName = is_array($feature) ? ($feature['name'] ?? '-') : $feature;
+                                $fAvailable = is_array($feature) ? ($feature['is_available'] ?? true) : true;
+                                @endphp
+                                <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-white/5 rounded text-[8px] text-white/60">
+                                    @if($fAvailable)
+                                    <svg class="w-2 h-2 text-bk-orange" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
+                                    </svg>
+                                    @else
+                                    <svg class="w-2 h-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                    </svg>
+                                    @endif
+                                    {{ $fName }}
+                                </span>
                                 @endforeach
                                 @if(count($pricelist->features) > 2)
                                 <span class="inline-flex px-2 py-0.5 bg-white/5 rounded text-[8px] text-white/40">+{{ count($pricelist->features) - 2 }}</span>
@@ -150,7 +165,7 @@
                                     data-name="{{ $pricelist->name }}"
                                     data-description="{{ $pricelist->description }}"
                                     data-price="{{ $pricelist->price }}"
-                                    data-features="{{ $pricelist->features ? implode(', ', $pricelist->features) : '' }}"
+                                    data-features='@json($pricelist->features ?: [])'
                                     data-is-featured="{{ $pricelist->is_featured ? '1' : '0' }}"
                                     data-order="{{ $pricelist->order }}"
                                     onclick="openEditModal(this)"
@@ -234,13 +249,31 @@
                             <input type="number" name="order" value="0" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-[9px] font-black uppercase tracking-widest text-white/40 mb-2">Fitur (pisahkan dengan koma)</label>
-                            <textarea name="features" rows="2" placeholder="Contoh: 3x revisi, File source, Konsultasi gratis" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all resize-none"></textarea>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-[9px] font-black uppercase tracking-widest text-white/40">Fitur Paket</label>
+                                <button type="button" onclick="addFeatureRow('create-features-list')" class="text-[9px] font-black uppercase tracking-widest text-bk-orange hover:text-white transition-colors">
+                                    + Tambah Fitur
+                                </button>
+                            </div>
+                            <div id="create-features-list" class="space-y-2">
+                                <div class="flex gap-2 feature-row">
+                                    <input type="text" name="features_names[]" placeholder="Nama fitur" class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all">
+                                    <select name="features_available[]" class="w-32 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase text-white focus:border-bk-orange focus:outline-none transition-all">
+                                        <option value="1">TERSEDIA (v)</option>
+                                        <option value="0">TIDAK (x)</option>
+                                    </select>
+                                    <button type="button" onclick="this.parentElement.remove()" class="p-3 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl hover:bg-red-500 hover:text-white transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-span-2">
-                            <label class="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" name="is_featured" class="w-5 h-5 rounded bg-white/5 border-white/10 text-bk-orange focus:ring-bk-orange focus:ring-offset-0">
-                                <span class="text-[9px] font-black uppercase tracking-widest text-white/60">Tandai sebagai paket unggulan</span>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" name="is_featured" value="1" class="w-5 h-5 rounded bg-white/5 border-white/10 text-bk-orange focus:ring-bk-orange focus:ring-offset-0 transition-all group-hover:border-bk-orange/50">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Tandai sebagai paket unggulan</span>
                             </label>
                         </div>
                     </div>
@@ -303,13 +336,20 @@
                             <input type="number" id="edit-order" name="order" value="0" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-[9px] font-black uppercase tracking-widest text-white/40 mb-2">Fitur (pisahkan dengan koma)</label>
-                            <textarea id="edit-features" name="features" rows="2" placeholder="Contoh: 3x revisi, File source, Konsultasi gratis" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all resize-none"></textarea>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-[9px] font-black uppercase tracking-widest text-white/40">Fitur Paket</label>
+                                <button type="button" onclick="addFeatureRow('edit-features-list')" class="text-[9px] font-black uppercase tracking-widest text-bk-orange hover:text-white transition-colors">
+                                    + Tambah Fitur
+                                </button>
+                            </div>
+                            <div id="edit-features-list" class="space-y-2">
+                                <!-- Dynamic rows will be here -->
+                            </div>
                         </div>
                         <div class="col-span-2">
-                            <label class="flex items-center gap-3 cursor-pointer">
-                                <input type="checkbox" id="edit-featured" name="is_featured" class="w-5 h-5 rounded bg-white/5 border-white/10 text-bk-orange focus:ring-bk-orange focus:ring-offset-0">
-                                <span class="text-[9px] font-black uppercase tracking-widest text-white/60">Tandai sebagai paket unggulan</span>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" id="edit-featured" name="is_featured" value="1" class="w-5 h-5 rounded bg-white/5 border-white/10 text-bk-orange focus:ring-bk-orange focus:ring-offset-0 transition-all group-hover:border-bk-orange/50">
+                                <span class="text-[9px] font-black uppercase tracking-widest text-white/60 group-hover:text-white transition-colors">Tandai sebagai paket unggulan</span>
                             </label>
                         </div>
                     </div>
@@ -327,7 +367,33 @@
     </div>
 
     <script>
+        function addFeatureRow(containerId, data = null) {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = 'flex gap-2 feature-row animate-reveal';
+
+            const isObj = data && typeof data === 'object';
+            const name = data ? (isObj ? data.name : data) : '';
+            const available = data ? (isObj ? (data.is_available ? '1' : '0') : '1') : '1';
+
+            div.innerHTML = `
+                <input type="text" name="features_names[]" value="${name}" placeholder="Nama fitur" class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-white focus:border-bk-orange focus:outline-none transition-all">
+                <select name="features_available[]" class="w-32 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black uppercase text-white focus:border-bk-orange focus:outline-none transition-all">
+                    <option value="1" ${available == '1' ? 'selected' : ''}>TERSEDIA (v)</option>
+                    <option value="0" ${available == '0' ? 'selected' : ''}>TIDAK (x)</option>
+                </select>
+                <button type="button" onclick="this.parentElement.remove()" class="p-3 bg-red-500/10 text-red-500 border border-red-500/20 rounded-xl hover:bg-red-500 hover:text-white transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
         function openCreateModal() {
+            // Reset and add one empty row
+            document.getElementById('create-features-list').innerHTML = '';
+            addFeatureRow('create-features-list');
+
             document.getElementById('create-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -343,7 +409,7 @@
             const name = button.dataset.name;
             const description = button.dataset.description;
             const price = button.dataset.price;
-            const features = button.dataset.features;
+            const features = JSON.parse(button.dataset.features);
             const isFeatured = button.dataset.isFeatured;
             const order = button.dataset.order;
 
@@ -352,9 +418,17 @@
             document.getElementById('edit-name').value = name;
             document.getElementById('edit-description').value = description || '';
             document.getElementById('edit-price').value = price;
-            document.getElementById('edit-features').value = features || '';
             document.getElementById('edit-featured').checked = isFeatured === '1';
             document.getElementById('edit-order').value = order;
+
+            // Fill features
+            const featuresList = document.getElementById('edit-features-list');
+            featuresList.innerHTML = '';
+            if (features && features.length > 0) {
+                features.forEach(f => addFeatureRow('edit-features-list', f));
+            } else {
+                addFeatureRow('edit-features-list');
+            }
 
             document.getElementById('edit-modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';

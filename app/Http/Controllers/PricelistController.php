@@ -36,10 +36,18 @@ class PricelistController extends Controller
             'order' => 'nullable|integer'
         ]);
 
-        // Convert features from comma-separated string to array
-        $features = $request->features
-            ? array_map('trim', explode(',', $request->features))
-            : null;
+        // Features processing: from array of [name, is_available]
+        $features = [];
+        if ($request->has('features_names')) {
+            foreach ($request->features_names as $index => $name) {
+                if (!empty($name)) {
+                    $features[] = [
+                        'name' => $name,
+                        'is_available' => isset($request->features_available[$index]) && $request->features_available[$index] == '1'
+                    ];
+                }
+            }
+        }
 
         Pricelist::create([
             'pricelist_category_id' => $request->pricelist_category_id,
@@ -47,7 +55,7 @@ class PricelistController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'features' => $features,
-            'is_featured' => $request->has('is_featured'),
+            'is_featured' => $request->boolean('is_featured'),
             'order' => $request->order ?? 0
         ]);
 
@@ -69,10 +77,18 @@ class PricelistController extends Controller
 
         $pricelist = Pricelist::findOrFail($id);
 
-        // Convert features from comma-separated string to array
-        $features = $request->features
-            ? array_map('trim', explode(',', $request->features))
-            : null;
+        // Features processing: from array of [name, is_available]
+        $features = [];
+        if ($request->has('features_names')) {
+            foreach ($request->features_names as $index => $name) {
+                if (!empty($name)) {
+                    $features[] = [
+                        'name' => $name,
+                        'is_available' => isset($request->features_available[$index]) && $request->features_available[$index] == '1'
+                    ];
+                }
+            }
+        }
 
         $pricelist->update([
             'pricelist_category_id' => $request->pricelist_category_id,
@@ -80,7 +96,7 @@ class PricelistController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'features' => $features,
-            'is_featured' => $request->has('is_featured'),
+            'is_featured' => $request->boolean('is_featured'),
             'order' => $request->order ?? 0
         ]);
 

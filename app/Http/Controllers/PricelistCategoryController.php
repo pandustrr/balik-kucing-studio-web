@@ -56,15 +56,9 @@ class PricelistCategoryController extends Controller
     public function destroy($id)
     {
         $category = PricelistCategory::findOrFail($id);
-
-        if ($category->pricelists()->count() > 0) {
-            return redirect()->route('admin.layanan.categories.index')
-                ->with('error', 'Kategori tidak dapat dihapus karena masih memiliki pricelist! ⚠️');
-        }
-
         $category->delete();
 
         return redirect()->route('admin.layanan.categories.index')
-            ->with('success', 'Kategori berhasil dihapus! 🗑️');
+            ->with('success', 'Kategori beserta isinya berhasil dihapus! 🗑️');
     }
 }
