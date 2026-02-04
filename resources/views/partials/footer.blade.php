@@ -41,7 +41,7 @@
                 <div class="space-y-6">
                     <h5 class="text-xs font-black uppercase tracking-[0.3em] text-bk-orange">Studio</h5>
                     <div class="space-y-4 text-sm font-bold opacity-60">
-                        <p>Yogyakarta, Indonesia<br>Street of Creativity 123</p>
+                        <p>Perumahan Taman Gading LO-9<br>Kel. Tegal Besar, Kec. Kaliwates<br>Jember, Jawa Timur</p>
                         <p>+62 812 3456 7890<br>halo@balikkucing.id</p>
                     </div>
                 </div>

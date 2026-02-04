@@ -5,8 +5,13 @@
 <section id="home" class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
     <!-- Background Image -->
     <div class="absolute inset-0 z-0 bg-ultra-black">
+        @if(isset($hero) && $hero->background_image)
+        <img src="{{ Storage::url($hero->background_image) }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0">
+        @else
         <img src="{{ asset('images/hero_bg.jpeg') }}" alt="Background"
             class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0">
+        @endif
     </div>
 
     <!-- Big Animated Background Text -->
@@ -33,22 +38,19 @@
                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
                     </span>
-                    Creative Design Agency
+                    {{ $hero->title ?? 'Creative Design Agency' }}
                 </div>
 
                 <div class="space-y-4 reveal-item">
                     <h1
                         class="text-6xl md:text-8xl lg:text-[100px] font-heading font-black leading-[0.9] tracking-tighter text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-                        YA <span class="text-bk-orange">DESAIN,</span><br>
-                        YA <span class="text-bk-orange uppercase">NGEGAMBAR,</span><br>
-                        YA <span class="text-bk-orange">MERCH.</span>
+                        {!! $hero->heading ?? 'YA <span class="text-bk-orange">DESAIN,</span><br>YA <span class="text-bk-orange uppercase">NGEGAMBAR,</span><br>YA <span class="text-bk-orange">MERCH.</span>' !!}
                     </h1>
                 </div>
 
                 <div class="max-w-2xl mx-auto lg:mx-0 space-y-8 reveal-item">
                     <p class="text-xl md:text-2xl leading-relaxed font-bold text-white/90 drop-shadow-md">
-                        Affordable design agency for your design needs. <br>
-                        <span class="text-bk-orange italic underline decoration-bk-orange/50 underline-offset-8">"Desain rasa jeruk."</span>
+                        {!! $hero->description ?? 'Affordable design agency for your design needs. <br><span class="text-bk-orange italic underline decoration-bk-orange/50 underline-offset-8">"Desain rasa jeruk."</span>' !!}
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-4">
@@ -99,11 +101,11 @@
         @for ($i = 0; $i < 4; $i++)
             <div class="flex items-center gap-12 px-6">
             <span class="text-4xl md:text-6xl font-heading font-black text-bk-orange">BALIKKUCING STUDIO</span>
-            <span class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-background/20 dark:bg-white/20"></span>
-            <span class="text-4xl md:text-6xl font-heading font-black text-transparent text-outline" style="-webkit-text-stroke: 1px var(--background); opacity: 0.2;">RASA JERUK</span>
+            <span class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-foreground/20 dark:bg-white/20"></span>
+            <span class="text-4xl md:text-6xl font-heading font-black text-foreground/30 dark:text-white/30">RASA JERUK</span>
             <span class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-bk-orange"></span>
-            <span class="text-4xl md:text-6xl font-heading font-black text-background">EST. 2024</span>
-            <span class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-background/20 dark:bg-white/20"></span>
+            <span class="text-4xl md:text-6xl font-heading font-black text-foreground dark:text-white">EST. 2024</span>
+            <span class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-foreground/20 dark:bg-white/20"></span>
     </div>
     @endfor
 </div>
