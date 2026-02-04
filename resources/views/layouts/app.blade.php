@@ -62,19 +62,36 @@
     @include('partials.whatsapp-widget')
     @stack('scripts')
     <script>
-        // Navbar Scroll Effect
+        // Efficient Navbar Scroll Effect
         const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+
+        function updateNav() {
             if (window.scrollY > 20) {
-                mainNav.classList.remove('py-6');
-                mainNav.classList.add('py-3');
+                if (!mainNav.classList.contains('py-3')) {
+                    mainNav.classList.remove('py-6');
+                    mainNav.classList.add('py-3');
+                }
             } else {
-                mainNav.classList.remove('py-3');
-                mainNav.classList.add('py-6');
+                if (!mainNav.classList.contains('py-6')) {
+                    mainNav.classList.remove('py-3');
+                    mainNav.classList.add('py-6');
+                }
             }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateNav);
+                ticking = true;
+            }
+        }, {
+            passive: true
         });
 
-        // Scroll Reveal Animation
+        // Optimized Scroll Reveal Animation
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -83,22 +100,23 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    const el = entry.target;
                     // Check if parent has a delay group
-                    const parent = entry.target.parentElement;
+                    const parent = el.parentElement;
                     if (parent && parent.classList.contains('reveal-group')) {
                         const children = Array.from(parent.children);
-                        const index = children.indexOf(entry.target);
-                        entry.target.style.animationDelay = `${index * 0.1}s`;
+                        const index = children.indexOf(el);
+                        el.style.animationDelay = `${index * 0.05}s`; // Faster delay
                     }
 
-                    entry.target.classList.add('animate-reveal');
-                    observer.unobserve(entry.target);
+                    el.classList.add('animate-reveal');
+                    el.style.opacity = '1';
+                    observer.unobserve(el);
                 }
             });
         }, observerOptions);
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Target elements specifically for a smoother, curated experience
             const revealElements = document.querySelectorAll('.reveal-item');
             revealElements.forEach(el => {
                 el.style.opacity = '0';

@@ -2,40 +2,52 @@
 
 @section('content')
 <!-- Hero Section -->
-<!-- Hero Section -->
-<section class="relative pt-48 pb-24 px-6 overflow-hidden {{ isset($hero) && $hero->background_image ? '' : 'bg-mesh' }}">
-    @if(isset($hero) && $hero->background_image)
-    <div class="absolute inset-0 z-0">
-        <img src="{{ Storage::url($hero->background_image) }}" alt="Hero Background" class="w-full h-full object-cover opacity-20 dark:opacity-10">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+<section class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 bg-ultra-black">
+        @if(isset($hero) && $hero->background_image)
+        <img src="{{ Storage::url($hero->background_image) }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @else
+        <img src="{{ asset('default-bg.png') }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @endif
     </div>
-    @endif
 
     <!-- Big Animated Background Text -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <h2 class="text-[20vw] font-heading font-black opacity-[0.03] dark:opacity-[0.05] whitespace-nowrap leading-none transform rotate-12">
+        <h2 class="text-[20vw] font-heading font-black opacity-[0.03] dark:opacity-[0.05] whitespace-nowrap leading-none transform -rotate-12 translate-y-12 uppercase">
             OUR SERVICES
         </h2>
     </div>
 
-    <!-- Decorative Gradients -->
-    <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-bk-orange/10 rounded-full blur-[120px] -mr-64 -mt-32"></div>
-    <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-bk-orange/5 rounded-full blur-[100px] -ml-40 -mb-20"></div>
+    <!-- Section Title Background -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none select-none">
+        <h2 class="text-[25vw] font-heading font-black opacity-[0.02] dark:opacity-[0.03] leading-none tracking-tighter uppercase">
+            LAYANAN
+        </h2>
+    </div>
 
-    <div class="max-w-7xl mx-auto relative reveal-group text-center z-10">
-        <div class="inline-flex items-center gap-3 px-4 py-2 glass rounded-full text-xs font-black tracking-[0.2em] uppercase reveal-item mb-8">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
-            </span>
-            {{ $hero->title ?? 'Apa yang Kami Lakukan' }}
+    <div class="max-w-7xl mx-auto relative reveal-group z-10 text-center">
+        <div class="max-w-3xl mx-auto space-y-8">
+            <div class="inline-flex items-center gap-3 px-4 py-2 glass rounded-full text-xs font-black tracking-[0.2em] uppercase reveal-item">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
+                </span>
+                {{ $hero->title ?? 'Apa yang Kami Lakukan' }}
+            </div>
+            <h1 class="text-6xl md:text-8xl font-heading font-black leading-none tracking-tighter reveal-item">
+                {!! $hero->heading ?? 'KATALOG <br><span class="text-bk-orange uppercase">KREATIF.</span>' !!}
+            </h1>
+            <p class="text-xl opacity-60 mt-8 leading-relaxed reveal-item max-w-2xl mx-auto">
+                {{ $hero->description ?? 'Dari sketsa kasar hingga produk siap pakai. Kami memberikan sentuhan magis di setiap piksel dan garis yang kami buat.' }}
+            </p>
         </div>
-        <h1 class="text-6xl md:text-8xl font-heading font-black leading-none tracking-tighter reveal-item">
-            {!! $hero->heading ?? 'KATALOG <br><span class="text-bk-orange uppercase">KREATIF.</span>' !!}
-        </h1>
-        <p class="max-w-2xl mx-auto text-xl opacity-60 mt-8 leading-relaxed reveal-item">
-            {{ $hero->description ?? 'Dari sketsa kasar hingga produk siap pakai. Kami memberikan sentuhan magis di setiap piksel dan garis yang kami buat.' }}
-        </p>
     </div>
 </section>
 
@@ -299,12 +311,12 @@
             <form class="space-y-4 max-w-md mx-auto">
                 <input type="text" placeholder="Nama Anda" class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-bk-orange transition-colors">
                 <input type="email" placeholder="Email Anda" class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-bk-orange transition-colors">
-                <select class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-bk-orange appearance-none transition-colors">
+                <!-- <select class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-2xl px-6 py-4 focus:outline-none focus:border-bk-orange appearance-none transition-colors">
                     <option>Pilih Layanan</option>
                     <option>Ya Desain</option>
                     <option>Ya Ngegambar</option>
                     <option>Ya Merch</option>
-                </select>
+                </select> -->
                 <button type="button" class="w-full bg-bk-orange text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-bk-orange/20 hover:scale-[1.02] active:scale-95 transition-all">
                     KONSULTASI GRATIS 🚀
                 </button>

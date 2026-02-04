@@ -21,6 +21,69 @@
         .font-heading {
             font-family: 'Instrument Sans', sans-serif;
         }
+
+        .preview-container {
+            background: #0a0a0b;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .preview-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: #000;
+        }
+
+        .preview-content {
+            position: relative;
+            z-index: 20;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8%;
+        }
+
+        .bg-text-preview {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .bg-text-preview h2 {
+            font-size: 15vw;
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 900;
+            white-space: nowrap;
+            opacity: 0.04;
+            transform: rotate(12deg);
+        }
+
+        .format-btn {
+            @apply flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.1em] transition-all shadow-lg active:scale-95 border-b-4;
+        }
+
+        .btn-orange {
+            @apply bg-bk-orange text-white border-bk-orange/50 hover:bg-bk-orange/90 hover:shadow-bk-orange/20;
+        }
+
+        .btn-blue {
+            @apply bg-indigo-600 text-white border-indigo-800/50 hover:bg-indigo-500 hover:shadow-indigo-500/20;
+        }
+
+        .btn-neutral {
+            @apply bg-white/10 text-white border-white/5 hover:bg-white/20;
+        }
     </style>
 </head>
 
@@ -43,36 +106,113 @@
         </div>
 
         <div class="grid lg:grid-cols-12 gap-8 items-start">
-            <!-- Left Side: Form -->
-            <div class="lg:col-span-8">
+            <!-- Left Side: Preview & Form -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- LIVE PREVIEW -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="block text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]">Real-time Preview (Stacked Layout)</label>
+                        <span class="text-[9px] font-bold text-bk-orange px-2 py-1 bg-bk-orange/10 rounded-full">Interactive View</span>
+                    </div>
+
+                    <div class="preview-container shadow-2xl">
+                        <!-- BG Wrapper -->
+                        <div class="preview-bg">
+                            @if($hero->background_image)
+                            <img id="bg-preview-img" src="{{ Storage::url($hero->background_image) }}" class="w-full h-full object-cover opacity-60 grayscale-[0.1]">
+                            @else
+                            <div class="w-full h-full bg-mesh opacity-60"></div>
+                            @endif
+                        </div>
+
+                        <!-- BG Text Decor -->
+                        <div class="bg-text-preview">
+                            <h2 id="bg-visual-text" class="transform -rotate-12 translate-y-12">
+                                @if($hero->page_name == 'home') BALIKKUCING STUDIO
+                                @elseif($hero->page_name == 'layanan') OUR SERVICES
+                                @elseif($hero->page_name == 'about') OUR STORY
+                                @else CONTACT @endif
+                            </h2>
+                        </div>
+
+                        <!-- Content Preview -->
+                        <div class="preview-content items-center">
+                            <div class="max-w-3xl space-y-6 text-center w-full">
+                                <!-- Banner Badge -->
+                                <div class="flex justify-center">
+                                    <span class="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-[10px] font-black tracking-[0.2em] uppercase text-white shadow-xl">
+                                        <span class="relative flex h-2 w-2">
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
+                                        </span>
+                                        <span id="preview-badge">{{ $hero->title }}</span>
+                                    </span>
+                                </div>
+                                <!-- Heading -->
+                                <h2 id="preview-heading" class="text-4xl md:text-5xl lg:text-7xl font-heading font-black leading-[0.9] tracking-tighter text-white drop-shadow-2xl">
+                                    {!! $hero->heading !!}
+                                </h2>
+                                <!-- Desc -->
+                                <p id="preview-desc" class="text-xs md:text-sm lg:text-lg opacity-70 font-medium leading-relaxed text-white max-w-2xl mx-auto drop-shadow-lg">
+                                    {!! $hero->description !!}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM -->
                 <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8">
-                    <form action="{{ route('admin.hero.update', $hero->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <form action="{{ route('admin.hero.update', $hero->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                         @csrf
                         @method('PUT')
 
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-2 gap-8">
                             <!-- Title (Badge) -->
                             <div class="col-span-2">
-                                <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-2">Title (Small Badge)</label>
-                                <input type="text" name="title" value="{{ old('title', $hero->title) }}" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors" placeholder="e.g. Tentang Kami">
+                                <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-3">Title (Small Badge)</label>
+                                <input type="text" name="title" id="input-title" value="{{ old('title', $hero->title) }}" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors" placeholder="e.g. Tentang Kami">
                                 @error('title')
                                 <p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Heading (Main Text) -->
-                            <div class="col-span-2">
-                                <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-2">Heading (Main Text)</label>
-                                <textarea name="heading" rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors font-bold">{{ old('heading', $hero->heading) }}</textarea>
+                            <div class="col-span-2 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider">Heading (Main Text)</label>
+                                    <div class="flex gap-2">
+                                        <button type="button" onclick="insertTag('input-heading', 'orange')" class="format-btn btn-orange">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-current"></span> Orange
+                                        </button>
+                                        <button type="button" onclick="insertTag('input-heading', 'br')" class="format-btn btn-neutral">
+                                            New Line
+                                        </button>
+                                    </div>
+                                </div>
+                                <textarea name="heading" id="input-heading" rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors font-bold leading-relaxed">{{ old('heading', $hero->heading) }}</textarea>
                                 @error('heading')
                                 <p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <!-- Description -->
-                            <div class="col-span-2">
-                                <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-2">Description</label>
-                                <textarea name="description" rows="4" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors">{{ old('description', $hero->description) }}</textarea>
+                            <div class="col-span-2 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider">Description</label>
+                                    <div class="flex gap-2">
+                                        <button type="button" onclick="insertTag('input-desc', 'orange')" class="format-btn btn-orange">
+                                            Orange
+                                        </button>
+                                        <button type="button" onclick="insertTag('input-desc', 'underline')" class="format-btn btn-blue">
+                                            Special Underline
+                                        </button>
+                                        <button type="button" onclick="insertTag('input-desc', 'br')" class="format-btn btn-neutral">
+                                            New Line
+                                        </button>
+                                    </div>
+                                </div>
+                                <textarea name="description" id="input-desc" rows="4" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors leading-relaxed">{{ old('description', $hero->description) }}</textarea>
                                 @error('description')
                                 <p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
                                 @enderror
@@ -80,39 +220,19 @@
                         </div>
 
                         <!-- Background Image -->
-                        <div class="pt-4 mt-4 border-t border-white/10">
+                        <div class="pt-6 border-t border-white/10">
                             <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider mb-4">Background Image</label>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-end">
-                                <div>
-                                    @if($hero->background_image)
-                                    <div class="relative h-40 rounded-xl overflow-hidden border border-white/10 group">
-                                        <img src="{{ Storage::url($hero->background_image) }}" class="w-full h-full object-cover">
-                                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <span class="text-xs font-bold text-white uppercase tracking-widest">Current Image</span>
-                                        </div>
-                                    </div>
-                                    @else
-                                    <div class="h-40 p-4 rounded-xl bg-white/5 border border-dashed border-white/20 flex flex-col items-center justify-center text-center text-white/30 text-[10px] uppercase font-bold tracking-widest">
-                                        <svg class="w-8 h-8 mb-2 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        No image (Mesh UI)
-                                    </div>
-                                    @endif
-                                </div>
-
-                                <div class="space-y-4">
-                                    <input type="file" name="background_image" class="block w-full text-xs text-white/40
-                                        file:mr-4 file:py-2 file:px-4
-                                        file:rounded-lg file:border-0
-                                        file:text-[10px] file:font-black file:uppercase
-                                        file:bg-bk-orange file:text-white
-                                        hover:file:bg-bk-orange/80
-                                        cursor-pointer
-                                    ">
-                                    <p class="text-[10px] text-white/30 italic">Recommended: 1920x1080px, JPG/PNG (Max 2MB).</p>
-                                </div>
+                            <div class="flex items-center gap-6">
+                                <input type="file" name="background_image" id="input-bg" onchange="previewFile(this)" class="block w-full text-xs text-white/40
+                                    file:mr-4 file:py-2.5 file:px-6
+                                    file:rounded-xl file:border-0
+                                    file:text-[10px] file:font-black file:uppercase
+                                    file:bg-white/10 file:text-white
+                                    hover:file:bg-bk-orange hover:file:shadow-lg hover:file:shadow-bk-orange/20
+                                    cursor-pointer transition-all
+                                ">
+                                <p class="text-[10px] text-white/30 italic whitespace-nowrap">JPG/PNG, Max 2MB.</p>
                             </div>
                             @error('background_image')
                             <p class="mt-1.5 text-xs text-red-400">{{ $message }}</p>
@@ -121,64 +241,107 @@
 
                         <div class="pt-8 border-t border-white/10 flex items-center justify-end gap-6">
                             <a href="{{ route('admin.hero.index') }}" class="px-6 py-3 text-white/40 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors">Batal</a>
-                            <button type="submit" class="px-10 py-4 bg-bk-orange text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-xl shadow-bk-orange/30">
-                                Update Hero Section
+                            <button type="submit" class="px-12 py-5 bg-bk-orange text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-bk-orange/30">
+                                Simpan Perubahan
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Right Side: Guidelines -->
+            <!-- Right Side: Documentation -->
             <div class="lg:col-span-4 space-y-6">
-                <!-- Guide: Orange Text -->
-                <div class="bg-bk-orange/10 border border-bk-orange/20 rounded-2xl p-6">
-                    <h4 class="text-bk-orange text-[10px] font-black uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M11.3 1.047a1 1 0 01.897.487l1.735 3.23a1 1 0 00.612.453l3.633.39a1 1 0 01.56 1.777l-2.73 2.39a1 1 0 00-.315.973l.791 3.57a1 1 0 01-1.488 1.08l-3.21-1.834a1 1 0 00-.98 0l-3.21 1.834a1 1 0 01-1.488-1.08l.791-3.57a1 1 0 00-.315-.973L1.986 7.378a1 1 0 01.56-1.777l3.633-.39a1 1 0 00.612-.453l1.734-3.23a1 1 0 01.897-.487z" clip-rule="evenodd" />
-                        </svg>
-                        Warna Oranye
-                    </h4>
-                    <p class="text-xs text-white/60 leading-relaxed mb-4">
-                        Gunakan kode ini untuk membuat teks menjadi <span class="text-bk-orange font-bold">Oranye</span>:
-                    </p>
-                    <div class="bg-black/40 rounded-lg p-3 font-mono text-[10px] text-bk-orange/80 mb-4 select-all">
-                        &lt;span class="text-bk-orange"&gt;Teks Anda&lt;/span&gt;
-                    </div>
-                    <p class="text-[10px] text-white/40 italic">Klik kode di atas untuk menyalin.</p>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <h4 class="text-bk-orange text-[10px] font-black uppercase tracking-[0.2em] mb-4">Pro Tips</h4>
+                    <ul class="space-y-4">
+                        <li class="flex gap-3">
+                            <div class="w-5 h-5 bg-bk-orange/20 rounded flex items-center justify-center text-bk-orange shrink-0">
+                                <span class="text-[10px] font-black">1</span>
+                            </div>
+                            <p class="text-[10px] text-white/60 leading-relaxed">Gunakan tombol <b>Orange</b> untuk mewarnai teks secara instan.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <div class="w-5 h-5 bg-bk-orange/20 rounded flex items-center justify-center text-bk-orange shrink-0">
+                                <span class="text-[10px] font-black">2</span>
+                            </div>
+                            <p class="text-[10px] text-white/60 leading-relaxed">Gunakan <b>New Line</b> untuk merapikan teks ke baris baru.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <div class="w-5 h-5 bg-bk-orange/20 rounded flex items-center justify-center text-bk-orange shrink-0">
+                                <span class="text-[10px] font-black">3</span>
+                            </div>
+                            <p class="text-[10px] text-white/60 leading-relaxed">Perubahan bisa langsung dilihat pada **Real-time Preview** di sebelah kiri.</p>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Guide: Line Break -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h4 class="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                        </svg>
-                        Baris Baru
-                    </h4>
-                    <p class="text-xs text-white/60 leading-relaxed mb-4">
-                        Gunakan kode ini untuk pindah ke baris baru:
-                    </p>
-                    <div class="bg-black/40 rounded-lg p-3 font-mono text-[10px] text-white/40 mb-4 select-all">
-                        &lt;br&gt;
-                    </div>
-                </div>
-
-                <!-- Guide: Underline Special -->
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <h4 class="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-                        Garis Bawah (Spesial)
-                    </h4>
-                    <div class="bg-black/40 rounded-lg p-3 font-mono text-[9px] text-white/30 select-all mb-4">
-                        &lt;span class="text-bk-orange italic underline decoration-bk-orange/50 underline-offset-8"&gt;"Teks"&lt;/span&gt;
-                    </div>
-                    <p class="text-[10px] text-white/40 leading-relaxed">
-                        Hanya gunakan kode ini pada bagian akhir deskripsi untuk efek garis bawah oranye yang elegan.
-                    </p>
+                <div class="bg-ultra-black border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+                    <div class="absolute -top-12 -right-12 w-24 h-24 bg-bk-orange/5 rounded-full blur-2xl group-hover:bg-bk-orange/10 transition-all duration-700"></div>
+                    <p class="text-[10px] font-bold text-white/40 uppercase mb-2">Shortcuts</p>
+                    <p class="text-[9px] text-white/20 leading-relaxed">Gunakan huruf besar pada heading untuk daya tarik visual yang kuat. Desain akan otomatis menyesuaikan lebar layar.</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <script>
+        // SYNC INPUTS TO PREVIEW
+        const inputTitle = document.getElementById('input-title');
+        const inputHeading = document.getElementById('input-heading');
+        const inputDesc = document.getElementById('input-desc');
+
+        const previewBadge = document.getElementById('preview-badge');
+        const previewHeading = document.getElementById('preview-heading');
+        const previewDesc = document.getElementById('preview-desc');
+
+        inputTitle.addEventListener('input', () => previewBadge.textContent = inputTitle.value);
+        inputHeading.addEventListener('input', () => previewHeading.innerHTML = inputHeading.value);
+        inputDesc.addEventListener('input', () => previewDesc.innerHTML = inputDesc.value);
+
+        // INSERT TAGS HELPER
+        function insertTag(fieldId, tagType) {
+            const textarea = document.getElementById(fieldId);
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const text = textarea.value;
+            const selectedText = text.substring(start, end);
+
+            let replacement = "";
+            if (tagType === 'orange') {
+                replacement = `<span class="text-bk-orange">${selectedText || 'Teks'}</span>`;
+            } else if (tagType === 'br') {
+                replacement = `<br>${selectedText}`;
+            } else if (tagType === 'underline') {
+                replacement = `<span class="text-bk-orange italic underline decoration-bk-orange/50 underline-offset-8">"${selectedText || 'Teks'}"</span>`;
+            }
+
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+
+            // Sync preview
+            if (fieldId === 'input-heading') previewHeading.innerHTML = textarea.value;
+            if (fieldId === 'input-desc') previewDesc.innerHTML = textarea.value;
+
+            textarea.focus();
+        }
+
+        // PREVIEW BACKGROUND IMAGE
+        function previewFile(input) {
+            const imgPreview = document.getElementById('bg-preview-img');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (imgPreview) {
+                        imgPreview.src = e.target.result;
+                    } else {
+                        // Handle case where no initial image exists
+                        const container = document.querySelector('.preview-bg');
+                        container.innerHTML = `<img id="bg-preview-img" src="${e.target.result}" class="w-full h-full object-cover opacity-60 grayscale-[0.1]">`;
+                    }
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </body>
 
 </html>

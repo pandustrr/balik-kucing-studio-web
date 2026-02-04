@@ -2,18 +2,25 @@
 
 @section('content')
 <!-- Hero Section -->
-<!-- Hero Section -->
-<section class="relative pt-48 pb-24 px-6 overflow-hidden {{ isset($hero) && $hero->background_image ? '' : 'bg-mesh' }}">
-    @if(isset($hero) && $hero->background_image)
-    <div class="absolute inset-0 z-0">
-        <img src="{{ Storage::url($hero->background_image) }}" alt="Hero Background" class="w-full h-full object-cover opacity-20 dark:opacity-10">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+<section class="relative pt-48 pb-24 px-6 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 bg-ultra-black">
+        @if(isset($hero) && $hero->background_image)
+        <img src="{{ Storage::url($hero->background_image) }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @else
+        <img src="{{ asset('default-bg.png') }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @endif
     </div>
-    @endif
 
     <!-- Big Animated Background Text -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <h2 class="text-[25vw] font-heading font-black opacity-[0.03] dark:opacity-[0.05] whitespace-nowrap leading-none transform rotate-12 -translate-y-24">
+        <h2 class="text-[20vw] font-heading font-black opacity-[0.03] dark:opacity-[0.05] whitespace-nowrap leading-none transform -rotate-12 translate-y-12">
             HELLO
         </h2>
     </div>
@@ -131,7 +138,7 @@
                                 <input type="tel" class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl px-5 py-3.5 focus:outline-none focus:border-bk-orange transition-all text-sm" placeholder="+62 812-3456-7890">
                             </div>
 
-                            <div class="space-y-2">
+                            <!-- <div class="space-y-2">
                                 <label class="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 ml-2">Layanan</label>
                                 <select class="w-full bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 rounded-xl px-4 py-3.5 focus:outline-none focus:border-bk-orange transition-all text-sm appearance-none cursor-pointer">
                                     <option>Pilih Layanan...</option>
@@ -140,7 +147,7 @@
                                     <option>Ya Merch</option>
                                     <option>Konsultasi Umum</option>
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="space-y-2">
                                 <label class="text-[9px] font-black uppercase tracking-[0.2em] opacity-40 ml-2">Pesan</label>
