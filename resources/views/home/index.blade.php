@@ -7,10 +7,14 @@
     <div class="absolute inset-0 z-0 bg-ultra-black">
         @if(isset($hero) && $hero->background_image)
         <img src="{{ Storage::url($hero->background_image) }}" alt="Background"
-            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0">
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
         @else
-        <img src="{{ asset('images/hero_bg.jpeg') }}" alt="Background"
-            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0">
+        <img src="{{ asset('default-bg.png') }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
         @endif
     </div>
 

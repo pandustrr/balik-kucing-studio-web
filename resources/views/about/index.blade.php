@@ -2,14 +2,21 @@
 
 @section('content')
 <!-- Hero Section -->
-<!-- Hero Section -->
-<section class="relative pt-48 pb-24 px-6 overflow-hidden {{ isset($hero) && $hero->background_image ? '' : 'bg-mesh' }}">
-    @if(isset($hero) && $hero->background_image)
-    <div class="absolute inset-0 z-0">
-        <img src="{{ Storage::url($hero->background_image) }}" alt="Hero Background" class="w-full h-full object-cover opacity-20 dark:opacity-10">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"></div>
+<section class="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0 bg-ultra-black">
+        @if(isset($hero) && $hero->background_image)
+        <img src="{{ Storage::url($hero->background_image) }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @else
+        <img src="{{ asset('default-bg.png') }}" alt="Background"
+            class="w-full h-full object-cover opacity-60 dark:opacity-40 grayscale-[0.1] dark:grayscale-0"
+            fetchpriority="high"
+            decoding="async">
+        @endif
     </div>
-    @endif
 
     <!-- Big Animated Background Text -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -18,41 +25,28 @@
         </h2>
     </div>
 
-    <!-- Decorative Gradients -->
-    <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-bk-orange/10 rounded-full blur-[120px] -ml-64 -mt-32"></div>
-    <div class="absolute bottom-0 right-0 w-[300px] h-[300px] bg-bk-orange/5 rounded-full blur-[100px] -mr-40 -mb-20"></div>
+    <!-- Section Title Background -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none select-none">
+        <h2 class="text-[25vw] font-heading font-black opacity-[0.02] dark:opacity-[0.03] leading-none tracking-tighter uppercase">
+            ABOUT
+        </h2>
+    </div>
 
-    <div class="max-w-7xl mx-auto relative reveal-group z-10">
-        <div class="grid lg:grid-cols-2 gap-24 items-center">
-            <div class="reveal-item">
-                <div class="inline-flex items-center gap-3 px-4 py-2 glass rounded-full text-xs font-black tracking-[0.2em] uppercase mb-8">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
-                    </span>
-                    {{ $hero->title ?? 'Tentang Kami' }}
-                </div>
-                <h1 class="text-6xl md:text-8xl font-heading font-black leading-[0.9] tracking-tighter">
-                    {!! $hero->heading ?? 'STUDIO <br>DENGAN <br><span class="text-bk-orange uppercase">KARAKTER.</span>' !!}
-                </h1>
+    <div class="max-w-7xl mx-auto relative reveal-group z-10 text-center">
+        <div class="max-w-3xl mx-auto space-y-8">
+            <div class="inline-flex items-center gap-3 px-4 py-2 glass rounded-full text-xs font-black tracking-[0.2em] uppercase reveal-item">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-bk-orange opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-bk-orange"></span>
+                </span>
+                {{ $hero->title ?? 'Tentang Kami' }}
             </div>
-            <div class="reveal-item space-y-6">
-                @if(isset($hero) && $hero->description)
-                <p class="text-2xl opacity-70 leading-relaxed font-medium">
-                    {{ $hero->description }}
-                </p>
-                @else
-                <p class="text-2xl opacity-70 leading-relaxed font-medium">
-                    Balik Kucing Studio bukan sekadar agensi desain. Kami adalah kolektif kreatif yang percaya bahwa
-                    estetika dan fungsi harus berjalan beriringan.
-                </p>
-                <div class="h-px bg-foreground/10 dark:bg-white/10"></div>
-                <p class="text-xl opacity-60 leading-relaxed">
-                    Dimulai dari sebuah garasi kecil (dan banyak kopi ☕), kini kami telah membantu ratusan brand menemukan
-                    suara visual mereka melalui desain yang <span class="text-bk-orange font-bold italic">fresssh</span> dan berani.
-                </p>
-                @endif
-            </div>
+            <h1 class="text-6xl md:text-8xl font-heading font-black leading-none tracking-tighter reveal-item">
+                {!! $hero->heading ?? 'STUDIO <br>DENGAN <br><span class="text-bk-orange uppercase">KARAKTER.</span>' !!}
+            </h1>
+            <p class="text-xl opacity-60 mt-8 leading-relaxed reveal-item max-w-2xl mx-auto">
+                {{ $hero->description ?? 'Balik Kucing Studio bukan sekadar agensi desain. Kami adalah kolektif kreatif yang percaya bahwa estetika dan fungsi harus berjalan beriringan.' }}
+            </p>
         </div>
     </div>
 </section>
@@ -87,7 +81,7 @@
 <section id="about" class="relative py-32 bg-background overflow-hidden">
     <!-- Big Section Background Text -->
     <div class="absolute bottom-0 right-1/2 translate-x-1/2 pointer-events-none select-none">
-        <h2 class="text-[30vw] font-heading font-black opacity-[0.02] dark:opacity-[0.03] leading-none tracking-tighter">
+        <h2 class="text-[25vw] font-heading font-black opacity-[0.02] dark:opacity-[0.03] leading-none tracking-tighter uppercase">
             ABOUT
         </h2>
     </div>

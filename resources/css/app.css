@@ -28,7 +28,8 @@
         background-color: var(--background);
         color: var(--foreground);
         font-family: 'Plus Jakarta Sans', sans-serif;
-        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
     }
 }
 
@@ -55,18 +56,21 @@
     }
 
     .bg-mesh {
-        /* Simplified mesh for better performance */
+        /* High performance mesh using GPU-friendly gradients */
         background-image:
-            radial-gradient(at 0% 0%, rgba(244, 124, 32, 0.08) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(244, 124, 32, 0.08) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(244, 124, 32, 0.05) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(244, 124, 32, 0.05) 0px, transparent 50%);
+        will-change: transform;
     }
 
     .glass {
         background: var(--card-bg);
-        /* Optimized blur and removed saturate for better FPS */
-        backdrop-filter: blur(12px);
+        /* Optimized blur for better FPS */
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         border: 1px solid var(--border-color);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+        will-change: transform, opacity;
     }
 
     .animate-reveal {
