@@ -141,4 +141,9 @@ class AdminController extends Controller
 
         return redirect()->route('admin.settings')->with('success', 'Nama berhasil diperbarui! ✨');
     }
+
+    public function merchandiseIndex()
+    {
+        return view('admin.merchandise.index');
+    }
 }

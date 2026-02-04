@@ -35,6 +35,7 @@
                         <li><a href="{{ route('home') }}" class="hover:text-bk-orange transition-colors">Utama</a></li>
                         <li><a href="{{ route('layanan') }}" class="hover:text-bk-orange transition-colors">Layanan</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-bk-orange transition-colors">Studio</a></li>
+                        <li><a href="{{ route('merchandise') }}" class="hover:text-bk-orange transition-colors">Merchandise</a></li>
                         <li><a href="{{ route('contact') }}" class="hover:text-bk-orange transition-colors">Hiring</a></li>
                     </ul>
                 </div>

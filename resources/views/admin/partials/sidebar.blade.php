@@ -31,7 +31,28 @@
                 <span class="text-[11px] font-black uppercase tracking-wider">Hero Manager</span>
             </a>
 
-
+            <!-- Merchandise Dropdown -->
+            <div class="space-y-1">
+                <button onclick="toggleDropdown('merchandise-menu')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ request()->is('admin/merchandise*') ? 'bg-white/5 text-white' : 'text-white/40 hover:bg-white/5 hover:text-white' }} group cursor-pointer border-none outline-none text-left">
+                    <div class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:text-bk-orange transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        </svg>
+                        <span class="text-[11px] font-black uppercase tracking-wider">Merchandise</span>
+                    </div>
+                    <svg id="merchandise-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 transition-transform duration-300 {{ request()->is('admin/merchandise*') ? 'rotate-180' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="merchandise-menu" class="pl-11 space-y-1 overflow-hidden transition-all duration-300 {{ request()->is('admin/merchandise*') ? 'max-h-40' : 'max-h-0' }}">
+                    <a href="{{ route('admin.merchandise.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.index') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Data Produk
+                    </a>
+                    <a href="{{ route('admin.merchandise.categories.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.categories.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Kategori
+                    </a>
+                </div>
+            </div>
 
             <p class="text-[8px] font-black text-white/20 uppercase tracking-[0.3em] px-3 pt-6 mb-3">Account</p>
 
@@ -68,3 +89,20 @@
         </div>
     </div>
 </aside>
+
+<script>
+    function toggleDropdown(id) {
+        const menu = document.getElementById(id);
+        const icon = document.getElementById(id + '-icon');
+
+        if (menu.classList.contains('max-h-0')) {
+            menu.classList.remove('max-h-0');
+            menu.classList.add('max-h-40');
+            icon.classList.add('rotate-180');
+        } else {
+            menu.classList.remove('max-h-40');
+            menu.classList.add('max-h-0');
+            icon.classList.remove('rotate-180');
+        }
+    }
+</script>

@@ -24,6 +24,9 @@
                 <a href="{{ route('about') }}" class="px-5 py-2 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 {{ request()->routeIs('about') ? 'bg-bk-orange text-white shadow-lg shadow-bk-orange/20' : 'hover:bg-foreground/5 opacity-60 hover:opacity-100 hover:text-bk-orange' }}">
                     About Us
                 </a>
+                <a href="{{ route('merchandise') }}" class="px-5 py-2 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 {{ request()->routeIs('merchandise') ? 'bg-bk-orange text-white shadow-lg shadow-bk-orange/20' : 'hover:bg-foreground/5 opacity-60 hover:opacity-100 hover:text-bk-orange' }}">
+                    Merchandise
+                </a>
                 <a href="{{ route('contact') }}" class="px-5 py-2 rounded-full text-xs font-black tracking-widest uppercase transition-all duration-300 {{ request()->routeIs('contact') ? 'bg-bk-orange text-white shadow-lg shadow-bk-orange/20' : 'hover:bg-foreground/5 opacity-60 hover:opacity-100 hover:text-bk-orange' }}">
                     Contact
                 </a>
@@ -46,10 +49,10 @@
                 <!-- CTA Button -->
                 <button class="relative group hidden sm:block">
                     <a href="https://lynk.id/balikkucingstudio" target="_blank">
-                    <div class="absolute -inset-1 bg-bk-orange rounded-full blur-md opacity-25 group-hover:opacity-50 transition-opacity"></div>
-                    <div class="relative bg-foreground dark:bg-bk-orange text-background dark:text-white px-6 py-2.5 rounded-full text-xs font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95">
-                        Order Desain
-                    </div>
+                        <div class="absolute -inset-1 bg-bk-orange rounded-full blur-md opacity-25 group-hover:opacity-50 transition-opacity"></div>
+                        <div class="relative bg-foreground dark:bg-bk-orange text-background dark:text-white px-6 py-2.5 rounded-full text-xs font-black tracking-widest uppercase transition-all hover:scale-105 active:scale-95">
+                            Order Desain
+                        </div>
                     </a>
                 </button>
 
