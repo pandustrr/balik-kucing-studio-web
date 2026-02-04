@@ -14,7 +14,10 @@ Route::get('/', function () {
 
 Route::get('/layanan', function () {
     $hero = HeroSection::where('page_name', 'layanan')->first();
-    return view('layanan.index', compact('hero'));
+    $categories = \App\Models\PricelistCategory::with(['pricelists' => function ($query) {
+        $query->orderBy('order')->orderBy('price');
+    }])->orderBy('order')->get();
+    return view('layanan.index', compact('hero', 'categories'));
 })->name('layanan');
 
 Route::get('/about', function () {
@@ -76,6 +79,17 @@ Route::prefix('admin')->group(function () {
         // Merchandise Order Management
         Route::get('/merchandise/orders/{status?}', [\App\Http\Controllers\MerchandiseOrderController::class, 'index'])->name('admin.merchandise.orders.index');
         Route::put('/merchandise/orders/{id}/status', [\App\Http\Controllers\MerchandiseOrderController::class, 'updateStatus'])->name('admin.merchandise.orders.update-status');
+
+        // Layanan Pricelist Management
+        Route::get('/layanan/categories', [\App\Http\Controllers\PricelistCategoryController::class, 'index'])->name('admin.layanan.categories.index');
+        Route::post('/layanan/categories', [\App\Http\Controllers\PricelistCategoryController::class, 'store'])->name('admin.layanan.categories.store');
+        Route::put('/layanan/categories/{id}', [\App\Http\Controllers\PricelistCategoryController::class, 'update'])->name('admin.layanan.categories.update');
+        Route::delete('/layanan/categories/{id}', [\App\Http\Controllers\PricelistCategoryController::class, 'destroy'])->name('admin.layanan.categories.destroy');
+
+        Route::get('/layanan/pricelists', [\App\Http\Controllers\PricelistController::class, 'index'])->name('admin.layanan.pricelists.index');
+        Route::post('/layanan/pricelists', [\App\Http\Controllers\PricelistController::class, 'store'])->name('admin.layanan.pricelists.store');
+        Route::put('/layanan/pricelists/{id}', [\App\Http\Controllers\PricelistController::class, 'update'])->name('admin.layanan.pricelists.update');
+        Route::delete('/layanan/pricelists/{id}', [\App\Http\Controllers\PricelistController::class, 'destroy'])->name('admin.layanan.pricelists.destroy');
 
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     });

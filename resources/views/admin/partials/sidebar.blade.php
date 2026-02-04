@@ -58,6 +58,29 @@
                 </div>
             </div>
 
+            <!-- Layanan Dropdown -->
+            <div class="space-y-1">
+                <button onclick="toggleDropdown('layanan-menu')" class="w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all {{ request()->is('admin/layanan*') ? 'bg-white/5 text-white' : 'text-white/40 hover:bg-white/5 hover:text-white' }} group cursor-pointer border-none outline-none text-left">
+                    <div class="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:text-bk-orange transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                        <span class="text-[11px] font-black uppercase tracking-wider">Layanan</span>
+                    </div>
+                    <svg id="layanan-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 transition-transform duration-300 {{ request()->is('admin/layanan*') ? 'rotate-180' : '' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="layanan-menu" class="pl-11 space-y-1 overflow-hidden transition-all duration-300 {{ request()->is('admin/layanan*') ? 'max-h-[500px]' : 'max-h-0' }}">
+                    <a href="{{ route('admin.layanan.categories.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.layanan.categories.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Kategori Pricelist
+                    </a>
+                    <a href="{{ route('admin.layanan.pricelists.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.layanan.pricelists.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Item Pricelist
+                    </a>
+                </div>
+            </div>
+
             <p class="text-[8px] font-black text-white/20 uppercase tracking-[0.3em] px-3 pt-6 mb-3">Account</p>
 
             <a href="{{ route('admin.settings') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->routeIs('admin.settings') ? 'bg-bk-orange text-white shadow-xl shadow-bk-orange/20' : 'text-white/40 hover:bg-white/5 hover:text-white' }} group">
