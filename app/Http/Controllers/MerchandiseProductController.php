@@ -11,11 +11,20 @@ use Illuminate\Support\Facades\Storage;
 
 class MerchandiseProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = MerchandiseProduct::with('category')->latest()->get();
+        $categoryId = $request->get('category', 'all');
+
+        $query = MerchandiseProduct::with('category')->latest();
+
+        if ($categoryId && $categoryId !== 'all') {
+            $query->where('merchandise_category_id', $categoryId);
+        }
+
+        $products = $query->get();
         $categories = MerchandiseCategory::oldest('name')->get();
-        return view('admin.merchandise.products.index', compact('products', 'categories'));
+
+        return view('admin.merchandise.products.index', compact('products', 'categories', 'categoryId'));
     }
 
     public function create()

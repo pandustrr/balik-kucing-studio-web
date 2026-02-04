@@ -65,6 +65,20 @@
         </div>
         @endif
 
+        <!-- Category Filter -->
+        <div class="flex gap-2 mb-8 bg-white/5 p-1.5 rounded-2xl border border-white/10 w-fit flex-wrap">
+            <a href="{{ route('admin.merchandise.products.index', ['category' => 'all']) }}"
+                class="px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all {{ (!isset($categoryId) || $categoryId === 'all') ? 'bg-bk-orange text-white shadow-lg' : 'text-white/30 hover:text-white hover:bg-white/5' }}">
+                Semua
+            </a>
+            @foreach($categories as $category)
+            <a href="{{ route('admin.merchandise.products.index', ['category' => $category->id]) }}"
+                class="px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all {{ isset($categoryId) && $categoryId == $category->id ? 'bg-bk-orange text-white shadow-lg' : 'text-white/30 hover:text-white hover:bg-white/5' }}">
+                {{ $category->name }}
+            </a>
+            @endforeach
+        </div>
+
         <!-- Products Table -->
         <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] overflow-hidden">
             <table class="w-full text-left border-collapse">
@@ -175,7 +189,13 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                 </svg>
                             </div>
-                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">Belum ada produk merchandise</p>
+                            <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
+                                @if(isset($categoryId) && $categoryId !== 'all')
+                                Belum ada produk untuk kategori ini
+                                @else
+                                Belum ada produk merchandise
+                                @endif
+                            </p>
                         </td>
                     </tr>
                     @endforelse
