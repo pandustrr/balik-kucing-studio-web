@@ -9,12 +9,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('Logogram_BKStd.ico') }}">
 
     <script>
-        // Check for dark mode preference
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        // Force dark mode as default and only theme for now
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
     </script>
 
     <title>@yield('title', 'Balikkucing Studio | Graphic Design Agency')</title>
@@ -125,40 +122,23 @@
             });
         });
 
-        // Theme Toggle Logic
+        // Theme Toggle Logic (Button exists but Light Mode is under development)
         var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
         var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            themeToggleLightIcon.classList.remove('hidden');
-        } else {
-            themeToggleDarkIcon.classList.remove('hidden');
-        }
+        // Always show sun icon (meaning we are in dark mode)
+        if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
 
         var themeToggleBtn = document.getElementById('theme-toggle');
 
-        themeToggleBtn.addEventListener('click', function() {
-            themeToggleDarkIcon.classList.toggle('hidden');
-            themeToggleLightIcon.classList.toggle('hidden');
-
-            if (localStorage.getItem('theme')) {
-                if (localStorage.getItem('theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                }
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-            }
-        });
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function() {
+                // Light Mode is currently under development
+                console.log('Light Mode is under development 🚀');
+                // document.documentElement.classList.toggle('dark');
+            });
+        }
 
         // Mobile Sidebar Logic
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
