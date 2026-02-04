@@ -113,7 +113,12 @@
             <!-- Right Side: Form -->
             <div class="lg:col-span-6 reveal-item">
                 <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-bk-orange/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute -inset-1 
+                        bg-[linear-gradient(to_right,var(--tw-color-bk-orange)/10,transparent)] 
+                        blur-xl opacity-0 
+                        group-hover:opacity-100 
+                        transition-opacity duration-500">
+                    </div>
 
                     <div class="relative glass p-8 md:p-10 rounded-[40px] border-white/5 overflow-hidden">
                         <div class="mb-8">

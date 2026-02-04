@@ -240,6 +240,30 @@
     </div>
 </div>
 
+<!-- QRIS Modal -->
+<div id="qris-modal" class="fixed inset-0 z-110 hidden flex items-center justify-center p-6">
+    <div class="fixed inset-0 bg-black/80" onclick="closeQrisModal()"></div>
+    <div class="relative max-w-sm w-full bg-white rounded-[32px] overflow-hidden shadow-2xl animate-reveal p-1 z-10">
+        <div class="bg-ultra-black rounded-[31px] p-8 text-center border border-white/5">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-white text-[10px] font-black uppercase tracking-widest opacity-40">Scan Preview</h3>
+                <button onclick="closeQrisModal()" class="text-white/20 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="bg-white p-4 rounded-2xl mb-6 aspect-square flex items-center justify-center overflow-hidden">
+                <img id="qris-image" src="" class="w-full h-full object-contain" alt="QRIS Preview">
+            </div>
+            <p class="text-white/30 text-[9px] font-bold uppercase tracking-widest leading-relaxed">
+                Silakan scan kode di atas untuk melihat detail atau preview produk.
+            </p>
+        </div>
+    </div>
+</div>
+
+
 <!-- Order Details Modal -->
 <div id="order-modal" class="fixed inset-0 z-110 hidden flex items-center justify-center p-4 md:p-6">
     <div class="fixed inset-0 bg-black/80" onclick="closeOrderModal()"></div>
@@ -461,7 +485,7 @@
         }
     }
 
-    function submitOrder(event) {
+    async function submitOrder(event) {
         event.preventDefault();
         if (!currentOrderData) return;
 
@@ -470,12 +494,38 @@
 
         const {
             phone,
+            id,
             name,
             category,
             formattedPrice,
             qty,
             productDesc
         } = currentOrderData;
+
+        // Save order to database via AJAX
+        try {
+            const orderUrl = "{{ route('merchandise.order.store') }}";
+            const response = await fetch(orderUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    buyer_name: buyerName,
+                    buyer_location: buyerLocation,
+                    merchandise_product_id: id,
+                    quantity: qty
+                })
+            });
+
+            if (!response.ok) {
+                console.error('Failed to save order record');
+            }
+        } catch (error) {
+            console.error('Error saving order:', error);
+        }
 
         const message = `Halo Balik Kucing Studio! 🐱\n\nSaya ingin memesan produk merchandise berikut:\n\n*DATA PEMESAN:* \n- Nama: *${buyerName}*\n- Lokasi: *${buyerLocation}*\n\n*DETAIL PRODUK:* \n- Produk: *${name}*\n- Kategori: ${category}\n- Deskripsi: ${productDesc}\n- Harga Satuan: ${formattedPrice}\n- Jumlah Pesanan: *${qty} Pcs*\n\nMohon informasi lebih lanjut mengenai ketersediaan stok dan cara pembayarannya. Terima kasih!`;
 

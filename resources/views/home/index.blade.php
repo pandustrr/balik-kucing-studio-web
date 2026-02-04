@@ -272,7 +272,7 @@
                 <div class="relative grid grid-cols-2 gap-6 scale-90 md:scale-100">
                     <div class="space-y-6 pt-12">
                         <div
-                            class="aspect-[4/5] glass rounded-[40px] p-8 flex flex-col justify-between group transition-all duration-500 hover:bg-bk-orange hover:border-transparent">
+                            class="aspect-[calc(4/5)] glass rounded-[40px] p-8 flex flex-col justify-between group transition-all duration-500 hover:bg-bk-orange hover:border-transparent">
                             <h5 class="text-4xl font-heading font-black group-hover:text-white transition-colors">SIAPA
                             </h5>
                             <p class="text-sm font-bold opacity-60 group-hover:text-white/80 transition-colors">Team

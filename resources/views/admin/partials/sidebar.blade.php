@@ -45,12 +45,15 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <div id="merchandise-menu" class="pl-11 space-y-1 overflow-hidden transition-all duration-300 {{ request()->is('admin/merchandise*') ? 'max-h-40' : 'max-h-0' }}">
+                <div id="merchandise-menu" class="pl-11 space-y-1 overflow-hidden transition-all duration-300 {{ request()->is('admin/merchandise*') ? 'max-h-[500px]' : 'max-h-0' }}">
                     <a href="{{ route('admin.merchandise.categories.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.categories.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
                         Kategori
                     </a>
                     <a href="{{ route('admin.merchandise.index') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.index') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
                         Data Produk
+                    </a>
+                    <a href="{{ route('admin.merchandise.orders.index', 'all') }}" class="flex items-center py-2 text-[10px] font-bold uppercase tracking-widest {{ request()->routeIs('admin.merchandise.orders.*') ? 'text-bk-orange' : 'text-white/30 hover:text-white' }} transition-colors">
+                        Data Order
                     </a>
                 </div>
             </div>
@@ -98,10 +101,10 @@
 
         if (menu.classList.contains('max-h-0')) {
             menu.classList.remove('max-h-0');
-            menu.classList.add('max-h-40');
+            menu.classList.add('max-h-[500px]');
             icon.classList.add('rotate-180');
         } else {
-            menu.classList.remove('max-h-40');
+            menu.classList.remove('max-h-[500px]');
             menu.classList.add('max-h-0');
             icon.classList.remove('rotate-180');
         }

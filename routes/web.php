@@ -34,6 +34,8 @@ Route::get('/merchandise', function () {
     return view('merchandise.index', compact('hero', 'categories', 'products'));
 })->name('merchandise');
 
+Route::post('/merchandise/order', [\App\Http\Controllers\MerchandiseOrderController::class, 'store'])->name('merchandise.order.store');
+
 // Admin Routes
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminController::class, 'login'])->name('admin.login');
@@ -70,6 +72,10 @@ Route::prefix('admin')->group(function () {
             'update' => 'admin.merchandise.products.update',
             'destroy' => 'admin.merchandise.products.destroy',
         ]);
+
+        // Merchandise Order Management
+        Route::get('/merchandise/orders/{status?}', [\App\Http\Controllers\MerchandiseOrderController::class, 'index'])->name('admin.merchandise.orders.index');
+        Route::put('/merchandise/orders/{id}/status', [\App\Http\Controllers\MerchandiseOrderController::class, 'updateStatus'])->name('admin.merchandise.orders.update-status');
 
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     });
