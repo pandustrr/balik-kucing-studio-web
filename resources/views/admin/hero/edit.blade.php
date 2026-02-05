@@ -13,81 +13,9 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .font-heading {
-            font-family: 'Instrument Sans', sans-serif;
-        }
-
-        .preview-container {
-            background: #0a0a0b;
-            position: relative;
-            overflow: hidden;
-            border-radius: 32px;
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .preview-bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            background: #000;
-        }
-
-        .preview-content {
-            position: relative;
-            z-index: 20;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 8%;
-        }
-
-        .bg-text-preview {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            z-index: 10;
-            overflow: hidden;
-        }
-
-        .bg-text-preview h2 {
-            font-size: 15vw;
-            font-family: 'Instrument Sans', sans-serif;
-            font-weight: 900;
-            white-space: nowrap;
-            opacity: 0.04;
-            transform: rotate(12deg);
-        }
-
-        .format-btn {
-            @apply flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.1em] transition-all shadow-lg active:scale-95 border-b-4;
-        }
-
-        .btn-orange {
-            @apply bg-bk-orange text-white border-bk-orange/50 hover:bg-bk-orange/90 hover:shadow-bk-orange/20;
-        }
-
-        .btn-blue {
-            @apply bg-indigo-600 text-white border-indigo-800/50 hover:bg-indigo-500 hover:shadow-indigo-500/20;
-        }
-
-        .btn-neutral {
-            @apply bg-white/10 text-white border-white/5 hover:bg-white/20;
-        }
-    </style>
 </head>
 
-<body class="bg-ultra-black text-white">
+<body class="bg-ultra-black text-white font-sans">
     @include('admin.partials.sidebar')
 
     <!-- Main Content -->
@@ -115,9 +43,9 @@
                         <span class="text-[9px] font-bold text-bk-orange px-2 py-1 bg-bk-orange/10 rounded-full">Interactive View</span>
                     </div>
 
-                    <div class="preview-container shadow-2xl">
+                    <div class="relative bg-[#0a0a0b] overflow-hidden rounded-[32px] aspect-video w-full border border-white/5 shadow-2xl">
                         <!-- BG Wrapper -->
-                        <div class="preview-bg">
+                        <div class="absolute inset-0 z-0 bg-black">
                             @if($hero->background_image)
                             <img id="bg-preview-img" src="{{ Storage::url($hero->background_image) }}" class="w-full h-full object-cover opacity-60 grayscale-[0.1]">
                             @else
@@ -126,17 +54,18 @@
                         </div>
 
                         <!-- BG Text Decor -->
-                        <div class="bg-text-preview">
-                            <h2 id="bg-visual-text" class="transform -rotate-12 translate-y-12">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 overflow-hidden">
+                            <h2 id="bg-visual-text" class="text-[15vw] font-heading font-black whitespace-nowrap opacity-[0.04] transform -rotate-12 translate-y-12">
                                 @if($hero->page_name == 'home') BALIKKUCING STUDIO
                                 @elseif($hero->page_name == 'layanan') OUR SERVICES
                                 @elseif($hero->page_name == 'about') OUR STORY
+                                @elseif($hero->page_name == 'merchandise') MERCHANDISE
                                 @else CONTACT @endif
                             </h2>
                         </div>
 
                         <!-- Content Preview -->
-                        <div class="preview-content items-center">
+                        <div class="relative z-20 h-full flex flex-col justify-center p-[8%] items-center">
                             <div class="max-w-3xl space-y-6 text-center w-full">
                                 <!-- Banner Badge -->
                                 <div class="flex justify-center">
@@ -181,13 +110,27 @@
                             <div class="col-span-2 space-y-3">
                                 <div class="flex items-center justify-between">
                                     <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider">Heading (Main Text)</label>
-                                    <div class="flex gap-2">
-                                        <button type="button" onclick="insertTag('input-heading', 'orange')" class="format-btn btn-orange">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-current"></span> Orange
-                                        </button>
-                                        <button type="button" onclick="insertTag('input-heading', 'br')" class="format-btn btn-neutral">
-                                            New Line
-                                        </button>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-heading', 'orange')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-bk-orange text-white shadow-lg shadow-bk-orange/20 hover:brightness-110 border-none outline-none whitespace-nowrap">
+                                                Orange
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-heading', 'br-orange')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-white/5 text-bk-orange border border-bk-orange/20 hover:bg-white/10 outline-none whitespace-nowrap">
+                                                New Line dan Orange
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-heading', 'underline')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-indigo-600/90 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-600 outline-none whitespace-nowrap">
+                                                Special Underline
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-heading', 'br')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-white/10 text-white/70 hover:bg-white/20 border-none outline-none whitespace-nowrap">
+                                                New Line
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <textarea name="heading" id="input-heading" rows="3" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors font-bold leading-relaxed">{{ old('heading', $hero->heading) }}</textarea>
@@ -200,16 +143,27 @@
                             <div class="col-span-2 space-y-3">
                                 <div class="flex items-center justify-between">
                                     <label class="block text-[10px] font-bold text-white/50 uppercase tracking-wider">Description</label>
-                                    <div class="flex gap-2">
-                                        <button type="button" onclick="insertTag('input-desc', 'orange')" class="format-btn btn-orange">
-                                            Orange
-                                        </button>
-                                        <button type="button" onclick="insertTag('input-desc', 'underline')" class="format-btn btn-blue">
-                                            Special Underline
-                                        </button>
-                                        <button type="button" onclick="insertTag('input-desc', 'br')" class="format-btn btn-neutral">
-                                            New Line
-                                        </button>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-desc', 'orange')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-bk-orange text-white shadow-lg shadow-bk-orange/20 hover:brightness-110 border-none outline-none whitespace-nowrap">
+                                                Orange
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-desc', 'br-orange')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-white/5 text-bk-orange border border-bk-orange/20 hover:bg-white/10 outline-none whitespace-nowrap">
+                                                New Line dan Orange
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-desc', 'underline')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-indigo-600/90 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-600 outline-none whitespace-nowrap">
+                                                Special Underline
+                                            </button>
+                                        </div>
+                                        <div class="p-0.5 bg-white/5 border border-white/10 rounded-xl shadow-lg hover:border-white/20 transition-colors">
+                                            <button type="button" onclick="insertTag('input-desc', 'br')" class="flex items-center justify-center gap-2 px-4 py-2 rounded-[10px] text-[8px] font-bold uppercase tracking-wider transition-all duration-300 active:scale-95 cursor-pointer bg-white/10 text-white/70 hover:bg-white/20 border-none outline-none whitespace-nowrap">
+                                                New Line
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                                 <textarea name="description" id="input-desc" rows="4" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm focus:border-bk-orange focus:outline-none transition-colors leading-relaxed">{{ old('description', $hero->description) }}</textarea>
@@ -311,6 +265,8 @@
                 replacement = `<span class="text-bk-orange">${selectedText || 'Teks'}</span>`;
             } else if (tagType === 'br') {
                 replacement = `<br>${selectedText}`;
+            } else if (tagType === 'br-orange') {
+                replacement = `<br><span class="text-bk-orange">${selectedText || 'Teks'}</span>`;
             } else if (tagType === 'underline') {
                 replacement = `<span class="text-bk-orange italic underline decoration-bk-orange/50 underline-offset-8">"${selectedText || 'Teks'}"</span>`;
             }

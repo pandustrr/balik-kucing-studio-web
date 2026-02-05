@@ -4,14 +4,16 @@
     --color-bk-orange: #F47C20;
     --color-white-cloud: #F1EFEB;
     --color-ultra-black: #28282A;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
 }
 
 @layer base {
     :root {
         --background: #F1EFEB;
         --foreground: #28282A;
-        --card-bg: rgba(241, 239, 235, 0.5);
-        --nav-bg: rgba(241, 239, 235, 0.7);
+        --card-bg: #FFFFFF;
+        --nav-bg: rgba(241, 239, 235, 0.9);
         --border-color: rgba(40, 40, 42, 0.1);
         --accent: #F47C20;
     }
@@ -28,8 +30,6 @@
         background-color: var(--background);
         color: var(--foreground);
         font-family: 'Plus Jakarta Sans', sans-serif;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
     }
 }
 
@@ -108,5 +108,39 @@
         100% {
             transform: translateX(-50%);
         }
+    }
+}
+
+@layer utilities {
+    .text-ui {
+        color: var(--color-ultra-black);
+    }
+
+    .dark .text-ui {
+        color: #F1EFEB;
+    }
+
+    .text-label {
+        color: rgba(40, 40, 42, 0.4);
+    }
+
+    .dark .text-label {
+        color: rgba(241, 239, 235, 0.4);
+    }
+
+    @keyframes bounce-subtle {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-4px);
+        }
+    }
+
+    .animate-bounce-subtle {
+        animation: bounce-subtle 3s ease-in-out infinite;
     }
 }

@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $this->call(HeroSectionSeeder::class);
+        $this->call([
+            HeroSectionSeeder::class,
+            MerchandiseCategorySeeder::class,
+            GeneralSettingSeeder::class,
+        ]);
     }
 }
