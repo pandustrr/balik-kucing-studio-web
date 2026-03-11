@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-    --color-bk-orange: #F47C20;
-    --color-white-cloud: #F1EFEB;
-    --color-ultra-black: #28282A;
+    --color-bk-orange: #f47c20;
+    --color-white-cloud: #f1efeb;
+    --color-ultra-black: #28282a;
 }
 
 @layer base {
     :root {
-        --background: #F1EFEB;
-        --foreground: #28282A;
-        --card-bg: rgba(241, 239, 235, 0.5);
+        --background: #f1efeb;
+        --foreground: #28282a;
+        --card-bg: rgba(241, 239, 235, 0.774);
         --nav-bg: rgba(241, 239, 235, 0.7);
         --border-color: rgba(40, 40, 42, 0.1);
-        --accent: #F47C20;
+        --accent: #f47c20;
     }
 
     .dark {
         --background: #0a0a0b;
-        --foreground: #F1EFEB;
-        --card-bg: rgba(20, 20, 22, 0.4);
+        --foreground: #f1efeb;
+        --card-bg: rgba(20, 20, 22, 0.941);
         --nav-bg: rgba(10, 10, 11, 0.7);
         --border-color: rgba(241, 239, 235, 0.08);
     }
@@ -30,6 +30,7 @@
         font-family: 'Plus Jakarta Sans', sans-serif;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
+        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -58,8 +59,8 @@
     .bg-mesh {
         /* High performance mesh using GPU-friendly gradients */
         background-image:
-            radial-gradient(at 0% 0%, rgba(244, 124, 32, 0.05) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(244, 124, 32, 0.05) 0px, transparent 50%);
+            radial-gradient(at 0% 0%, rgba(244, 124, 32, 0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(244, 124, 32, 0.08) 0px, transparent 50%);
         will-change: transform;
     }
 
@@ -74,7 +75,7 @@
     }
 
     .animate-reveal {
-        animation: reveal 1.0s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         will-change: transform, opacity;
     }
 
